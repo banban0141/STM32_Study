@@ -65,6 +65,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	// TODO TEST1
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
