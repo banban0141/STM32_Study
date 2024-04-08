@@ -1,0 +1,3 @@
+trafic.c:11:6:trafic_RED	8	static
+trafic.c:16:6:trafic_YELLOW	8	static
+trafic.c:21:6:trafic_GREEN	8	static

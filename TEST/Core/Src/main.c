@@ -22,6 +22,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdbool.h>
+
+#include "sofware_Timer.h"
+#include "button.h"
+#include "trafic.h"
 
 /* USER CODE END Includes */
 
@@ -67,6 +72,9 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+//	bool a = false;
+//	int status = 1;
+
 	// TODO TEST1
 	// UPDATE TEST1
   /* USER CODE END 1 */
@@ -91,17 +99,27 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_TIM_Base_Start_IT(&htim2);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+//  setTimer1(100);
+  setTimer1(2000);
   while (1)
   {
-	  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
-	  HAL_Delay(1000);
-	  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
-	  HAL_Delay(1000);
+	  if(isButton1Press()== 1){
+		  //TODO
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
+
+
+
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -199,13 +217,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_GREEN_Pin|LED_YELOW_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pin : Button1_Pin */
+  GPIO_InitStruct.Pin = Button1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(Button1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LED_RED_Pin LED_GREEN_Pin LED_YELOW_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_GREEN_Pin|LED_YELOW_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -214,7 +239,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+int counter = 100;
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timerRun();
+	getKeyInput();
+}
 /* USER CODE END 4 */
 
 /**
