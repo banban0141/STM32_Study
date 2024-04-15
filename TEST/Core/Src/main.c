@@ -27,6 +27,9 @@
 #include "sofware_Timer.h"
 #include "button.h"
 #include "trafic.h"
+#include "global.h"
+#include "fsm_auto.h"
+#include "fsm_man.h"
 
 /* USER CODE END Includes */
 
@@ -107,13 +110,16 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 //  setTimer1(100);
-  setTimer1(2000);
+//  setTimer1(2000);
+  status = INIT;
   while (1)
   {
-	  if(isButton1Press()== 1){
-		  //TODO
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-	  }
+	  fsm_autorun();
+	  fsm_man_run();
+//	  if(isButton1Press()== 1){
+//		  //TODO
+//		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//	  }
 
 
 

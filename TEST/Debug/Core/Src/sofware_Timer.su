@@ -1,2 +1,2 @@
-sofware_Timer.c:14:6:setTimer1	16	static
-sofware_Timer.c:20:6:timerRun	4	static
+sofware_Timer.c:15:6:setTimer1	16	static
+sofware_Timer.c:21:6:timerRun	4	static
